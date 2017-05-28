@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+    <file source-language="en" datatype="plaintext" original="messages" date="2017-05-28T14:00:00Z"
+          product-name="spl_easylock">
+        <header/>
+        <body>
+            <trans-unit id="pages.palette_title">
+                <source>EasyLock</source>
+            </trans-unit>
+            <trans-unit id="pages.tx_spleasylock.password">
+                <source>Frontend password</source>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

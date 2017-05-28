@@ -1,0 +1,19 @@
+plugin.tx_spleasylock {
+    view {
+
+        # cat=EasyLock/file; type=string; label=Template root path
+        templateRootPath = typo3conf/ext/spl_easylock/Resources/Private/Templates/
+        # cat=EasyLock/file; type=string; label=Partial root path
+        partialRootPath = typo3conf/ext/spl_easylock/Resources/Private/Partials/
+        # cat=EasyLock/file; type=string; label=Layout root path
+        layoutRootPath = typo3conf/ext/spl_easylock/Resources/Private/Layouts/
+
+        # cat=EasyLock/file; type=string; label=Container to clear [css classes, comma separated]
+        clearContainer =
+        # cat=EasyLock/file; type=string; label=Target container for password form [css class]
+        targetContainer =
+
+        # cat=EasyLock/file; type=string; label=Password form template
+        template = Default.html
+    }
+}

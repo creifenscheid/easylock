@@ -1,0 +1,18 @@
+<div class="tx-spleasylock">
+    <h1>
+        <f:translate key="LLL:typo3conf/ext/spl_easylock/Resources/Private/Language/locallang.xlf:tx_spleasylock.headline" />
+    </h1>
+
+    <f:if condition="{passwordfail} == 'true'">
+        <div class="tx-spleasylock-alert">
+            <f:translate key="LLL:typo3conf/ext/spl_easylock/Resources/Private/Language/locallang.xlf:tx_spleasylock.alert" />
+        </div>
+    </f:if>
+
+    <form action="" method="post" class="tx-spleasylock-form">
+        <input type="password" name="spleasylock" value="" placeholder="{f:translate(key: 'LLL:typo3conf/ext/spl_easylock/Resources/Private/Language/locallang.xlf:tx_spleasylock.placeholder', extensionName: 'spl_easylock')}"/>
+        <button type="submit">
+            <f:translate key="LLL:typo3conf/ext/spl_easylock/Resources/Private/Language/locallang.xlf:tx_spleasylock.submit" />
+        </button>
+    </form>
+</div>

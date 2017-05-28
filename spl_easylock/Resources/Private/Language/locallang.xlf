@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+    <file source-language="en" datatype="plaintext" original="messages" date="2017-05-28T14:00:00Z"
+          product-name="spl_easylock">
+        <header/>
+        <body>
+            <trans-unit id="tx_spleasylock.headline">
+                <source>Password</source>
+            </trans-unit>
+            <trans-unit id="tx_spleasylock.placeholder">
+                <source>Insert password</source>
+            </trans-unit>
+            <trans-unit id="tx_spleasylock.alert">
+                <source>The entered password was not correct.</source>
+            </trans-unit>
+            <trans-unit id="tx_spleasylock.submit">
+                <source>Send</source>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

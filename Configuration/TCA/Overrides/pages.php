@@ -13,7 +13,7 @@ $columns = array(
         'exclude' => 1,
         'config' => array(
             'type' => 'input',
-            'eval' => 'trim,password,md5',
+            'eval' => 'trim,password', //md5 - TYPO3 bug: clearing the field is not possible - change is not stored in database
             'size' => 13
         )
     )

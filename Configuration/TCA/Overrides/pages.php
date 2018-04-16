@@ -3,9 +3,6 @@ if (!defined ('TYPO3_MODE')) {
     die ('Access denied.');
 }
 
-// Add static file
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile('spl_easylock', 'Configuration/TypoScript', 'EasyLock');
-
 // Configure new fields:
 $columns = array(
     'tx_spleasylock_password' => array(
@@ -13,7 +10,7 @@ $columns = array(
         'exclude' => 1,
         'config' => array(
             'type' => 'input',
-            'eval' => 'trim,password', //md5 - TYPO3 bug: clearing the field is not possible - change is not stored in database
+            'eval' => 'trim,password,md5', //md5 - TYPO3 bug: clearing the field is not possible - change is not stored in database
             'size' => 13
         )
     )

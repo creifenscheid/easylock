@@ -13,7 +13,7 @@ $EM_CONF[$_EXTKEY] = array(
     'clearcacheonload' => true,
     'constraints' => array(
         'depends' => array(
-            'typo3' => '8.7.0-8.7.99',
+            'typo3' => '7.6.0-8.7.99',
         ),
         'conflicts' => array(),
         'suggests' => array(),

@@ -1,12 +1,9 @@
 <?php
 namespace SPL\SplEasylock\Hooks\Frontend;
 
-use Doctrine\Common\Util\Debug;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
-class EasyLock
-{
+class EasyLock {
     /**
      * @var \TYPO3\CMS\Frontend\Page\PageRepository
      */
@@ -57,6 +54,7 @@ class EasyLock
 
         // validate password if set
         if ($this->password != '') {
+
             // validate session
             $validateSession = $this->validateSession();
 
@@ -219,7 +217,7 @@ class EasyLock
         if ($gpEasylock != '') {
 
             // validate value against set password
-            $validation = $this->validatePassword(md5($gpEasylock));
+            $validation = $this->validatePassword($gpEasylock, TRUE);
 
             if($validation === 1) {
                 // set session parameter
@@ -246,15 +244,41 @@ class EasyLock
      * @param $notValidatedPassword
      * @return bool
      */
-    protected function validatePassword($notValidatedPassword) {
+    protected function validatePassword($notValidatedPassword, $saltedMode = FALSE) {
 
-        // validate password
-        if ($this->password == $notValidatedPassword) {
-            return 1;
+        if ($saltedMode) {
+            $success = FALSE;
+
+            // check salting utility
+            if (\TYPO3\CMS\Saltedpasswords\Utility\SaltedPasswordsUtility::isUsageEnabled ('BE')) {
+
+                // if enable for be - get instance of salt factory object
+                $saltObj = \TYPO3\CMS\Saltedpasswords\Salt\SaltFactory::getSaltingInstance ();
+
+                // check salt factory objects
+                if (is_object($saltObj)) {
+                    $success = $saltObj->checkPassword($notValidatedPassword, $this->password);
+                }
+            }
+
+            if ($success) {
+                return 1;
+            }
+
+            else {
+                return 0;
+            }
         }
 
         else {
-            return 0;
+            // validate password
+            if ($this->password == $notValidatedPassword) {
+                return 1;
+            }
+
+            else {
+                return 0;
+            }
         }
     }
 

@@ -118,9 +118,6 @@ class EasyLock {
                     // create xpath object
                     $xpath = new \DOMXpath($dom);
 
-                    // flag: form inserted y/n
-                    $formInserted = FALSE;
-
                     foreach ($clearContainer as $containerClass) {
 
                         // get dom nodes based on content containers

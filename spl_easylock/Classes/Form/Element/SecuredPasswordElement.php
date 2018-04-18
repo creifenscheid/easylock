@@ -48,9 +48,11 @@ class SecuredPasswordElement extends \TYPO3\CMS\Backend\Form\Element\AbstractFor
             }
         }
 
+        $uniqueFieldId = StringUtility::getUniqueId('formengine-input-');
+
         $attributes = [
             'value' => '',
-            'id' => StringUtility::getUniqueId('formengine-input-'),
+            'id' => $uniqueFieldId,
             'class' => implode(' ', [
                 'form-control',
                 't3js-clearable',
@@ -63,20 +65,24 @@ class SecuredPasswordElement extends \TYPO3\CMS\Backend\Form\Element\AbstractFor
                 'is_in' => trim($config['is_in'])
             ]),
             'data-formengine-input-name' => $parameterArray['itemFormElName'],
+            'onkeyup' => 'checkPwd("' . $uniqueFieldId . '")',
         ];
 
         $mainFieldHtml = [];
         $mainFieldHtml[] = '<div class="form-control-wrap" style="max-width: ' . $width . 'px">';
         $mainFieldHtml[] =  '<div class="form-wizards-wrap">';
         $mainFieldHtml[] =      '<div class="form-wizards-element">';
-        $mainFieldHtml[] =          '<input type="text"' . GeneralUtility::implodeAttributes($attributes, true) . ' onChange="checkPwd()" />';
+        $mainFieldHtml[] =          '<input type="text"' . GeneralUtility::implodeAttributes($attributes, true) .'/>';
         $mainFieldHtml[] =          '<input type="hidden" name="' . $parameterArray['itemFormElName'] . '" value="' . htmlspecialchars($itemValue) . '" />';
         $mainFieldHtml[] =          '<script type="text/javascript">';
         $mainFieldHtml[] =          '
-                                        function checkPwd() {
-                                            var password = 0;
+                                        function checkPwd(pwdFieldId) {
+                                            var password = $("#" + pwdFieldId).val();
+                                            var passwordSecurityLevel = $("#tx-spl-easylock-securitylevel_" + pwdFieldId);
                                             
                                             if (password) {                                                
+                                                var pwdScore = 0;
+                                                
                                                 var uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
                                                 var lowercase = "abcdefghijklmnopqrstuvwxyz";
                                                 var digits = "0123456789";
@@ -87,13 +93,44 @@ class SecuredPasswordElement extends \TYPO3\CMS\Backend\Form\Element\AbstractFor
                                                 var digitsFlag = contains(password, digits);
                                                 var splCharsFlag = contains(password, splChars);
                                                 
-                                                if(password.length>=8 && ucaseFlag && lcaseFlag && digitsFlag && splCharsFlag) {
-                                                    return true;
-                                                } else {
-                                                    return false;
+                                                
+                                                // set password score
+                                                if (password.length>=8) {
+                                                    pwdScore += 40;
                                                 }
-                                            } else {
-                                                return false;
+                                                
+                                                if (ucaseFlag) {
+                                                    pwdScore += 15;
+                                                }
+                                                
+                                                if (lcaseFlag) {
+                                                    pwdScore += 15;
+                                                }
+                                                
+                                                if (digitsFlag) {
+                                                    pwdScore += 15;
+                                                }
+                                                
+                                                if (splCharsFlag) {
+                                                    pwdScore += 15;
+                                                }
+                                                
+                                                if (pwdScore > 75) {
+                                                    passwordSecurityLevel.addClass("secure");
+                                                    passwordSecurityLevel.removeClass("midsecure");
+                                                    passwordSecurityLevel.removeClass("notsecure");
+                                                    passwordSecurityLevel.text("Secure");
+                                                } else if (pwdScore > 50) {
+                                                    passwordSecurityLevel.addClass("midSecure");
+                                                    passwordSecurityLevel.removeClass("secure");
+                                                    passwordSecurityLevel.removeClass("notSecure");
+                                                    passwordSecurityLevel.text("Could be more secure");
+                                                } else {
+                                                    passwordSecurityLevel.addClass("notSecure");
+                                                    passwordSecurityLevel.removeClass("midSecure");
+                                                    passwordSecurityLevel.removeClass("secure");
+                                                    passwordSecurityLevel.text("Unsecure");
+                                                }
                                             }
                                         }
                                         
@@ -108,16 +145,20 @@ class SecuredPasswordElement extends \TYPO3\CMS\Backend\Form\Element\AbstractFor
                                         }
                                     ';
         $mainFieldHtml[] =          '</script>';
-        $mainFieldHtml[] =          '<div class="securityLevel" data-element="' . $parameterArray['itemFormElID'] . '" style="background-color: deeppink; height: 25px; width: 100%; margin-top: 5px;"></div>';
+        $mainFieldHtml[] =          '<div class="tx-spl-easylock-securitylevel" id="tx-spl-easylock-securitylevel_' . $uniqueFieldId . '"></div>';
         $mainFieldHtml[] =      '</div>';
         $mainFieldHtml[] =  '</div>';
         $mainFieldHtml[] = '</div>';
         $mainFieldHtml = implode(LF, $mainFieldHtml);
 
-        $resultArray['html'] = '<div class="formengine-field-item t3js-formengine-field-item">' . $mainFieldHtml . '</div>';
+        // add backend css
+        $resultArray['stylesheetFiles'] = array(
+            'EXT:spl_easylock/Resources/Public/Css/tx-spleasylock-backend.css'
+        );
 
         DebuggerUtility::var_dump ($resultArray);
-        DebuggerUtility::var_dump ($parameterArray);
+
+        $resultArray['html'] = '<div class="formengine-field-item t3js-formengine-field-item">' . $mainFieldHtml . '</div>';
 
         return $resultArray;
     }

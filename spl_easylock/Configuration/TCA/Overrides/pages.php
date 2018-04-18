@@ -10,6 +10,7 @@ $columns = array(
         'exclude' => 1,
         'config' => array(
             'type' => 'input',
+            'renderType' => 'securedPassword',
             'eval' => 'trim,password,SPL\\SplEasylock\\Evaluation\\SaltedMd5Evaluation', //typo3 md5 eval - bug: clearing the field is not possible - change is not stored in database
             'size' => 13
         )

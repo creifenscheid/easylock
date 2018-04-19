@@ -1,4 +1,45 @@
-function checkPwd(pwdFieldId) {
+/**
+ * Module: TYPO3/CMS/SplEasylock/PasswordSecurityDisplay;
+ *
+ * xxx
+ * @exports TYPO3/CMS/SplEasylock/PasswordSecurityDisplay
+ */
+define(function () {
+    'use strict';
+
+    /**
+     * @exports TYPO3/CMS/SplEasylock/PasswordSecurityDisplay
+     */
+    var PasswordSecurityDisplay = {};
+
+    /**
+     * initialize events
+     */
+    PasswordSecurityDisplay.initializeEvents = function() {
+
+       if ($('.tx-spl-easylock-element-container').length) {
+
+           // loop through every security level element to connect the corresponding input field
+           $('.tx-spl-easylock-element-container').each(function(){
+               // define objects
+               var inputField = $(this).find('.tx-spl-easylock-input');
+               var securityLevel = $(this).find('.tx-spl-easylock-securitylevel');
+
+
+               console.log(inputField);
+               console.log(securityLevel);
+           });
+       }
+    };
+
+    // call initialize events
+    $(PasswordSecurityDisplay.initializeEvents);
+
+    // return method object
+    return PasswordSecurityDisplay;
+});
+
+/*function checkPwd(pwdFieldId) {
     var password = $('#' + pwdFieldId).val();
     var passwordSecurityLevel = $('#tx-spl-easylock-securitylevel_' + pwdFieldId);
 
@@ -64,4 +105,4 @@ function contains(password, allowedChars) {
         }
     }
     return false;
-}
+}*/

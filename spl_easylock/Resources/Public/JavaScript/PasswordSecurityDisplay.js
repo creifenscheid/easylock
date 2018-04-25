@@ -36,19 +36,13 @@ define(function () {
                        var passwordScore = PasswordSecurityDisplay.checkPasswordComplexity(passwordFieldValue);
 
                        if (passwordScore > 75) {
-                           securityLevel.addClass("secure");
-                           securityLevel.removeClass("midsecure");
-                           securityLevel.removeClass("notsecure");
+                           securityLevel.addClass("securitylevel-3");
                            securityLevel.text("Secure");
                        } else if (passwordScore > 50) {
-                           securityLevel.addClass("midSecure");
-                           securityLevel.removeClass("secure");
-                           securityLevel.removeClass("notSecure");
+                           securityLevel.addClass("securitylevel-2");
                            securityLevel.text("Could be more secure");
                        } else {
-                           securityLevel.addClass("notSecure");
-                           securityLevel.removeClass("midSecure");
-                           securityLevel.removeClass("secure");
+                           securityLevel.addClass("securitylevel-1");
                            securityLevel.text("Unsecure");
                        }
                    }
@@ -79,44 +73,25 @@ define(function () {
         // init password score
         var pwdScore = 0;
 
+        // define min length
+        var minLength = 8;
+
         var charLists = [
             'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
             'abcdefghijklmnopqrstuvwxyz',
             '0123456789',
-            '!@#$%&*()'
+            '!@#$%&*().,;:_-'
         ];
 
-        var uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        var lowercase = "abcdefghijklmnopqrstuvwxyz";
-        var digits = "0123456789";
-        var splChars ="!@#$%&*()";
-        var minLenght = 8;
-
-        var ucaseFlag = PasswordSecurityDisplay.checkValue(password, uppercase);
-        var lcaseFlag = PasswordSecurityDisplay.checkValue(password, lowercase);
-        var digitsFlag = PasswordSecurityDisplay.checkValue(password, digits);
-        var splCharsFlag = PasswordSecurityDisplay.checkValue(password, splChars);
-
+        for(var i = 0; i < charLists.length;  i++) {
+            if (PasswordSecurityDisplay.checkValue(password, charLists[i])) {
+                pwdScore += 15;
+            }
+        }
 
         // set password score
-        if (password.length>=minLenght) {
+        if (password.length>=minLength) {
             pwdScore += 40;
-        }
-
-        if (ucaseFlag) {
-            pwdScore += 15;
-        }
-
-        if (lcaseFlag) {
-            pwdScore += 15;
-        }
-
-        if (digitsFlag) {
-            pwdScore += 15;
-        }
-
-        if (splCharsFlag) {
-            pwdScore += 15;
         }
 
         return pwdScore;
@@ -136,6 +111,15 @@ define(function () {
         }
 
         return false;
+    };
+
+    /**
+     * clear css class
+     */
+    PasswordSecurityDisplay.clearCssClasses = function (element) {
+        for (var i = 1; i <= 3; i++) {
+            element.removeClass('securitylevel-' + i);
+        }
     };
 
     // trigger init events

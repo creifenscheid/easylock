@@ -3,13 +3,13 @@
   height: 25px;
   margin-top: 5px;
   padding: 4px 10px; }
-  .tx-spl-easylock-securitylevel.notSecure {
+  .tx-spl-easylock-securitylevel.securitylevel-1 {
     background-color: #f08080;
     color: #8b0000; }
-  .tx-spl-easylock-securitylevel.midSecure {
+  .tx-spl-easylock-securitylevel.securitylevel-2 {
     background-color: #f0e68c;
     color: #b8860b; }
-  .tx-spl-easylock-securitylevel.secure {
+  .tx-spl-easylock-securitylevel.securitylevel-3 {
     background-color: #90ee90;
     color: #006400; }
 

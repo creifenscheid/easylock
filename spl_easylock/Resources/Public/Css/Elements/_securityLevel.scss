@@ -4,18 +4,18 @@
     margin-top: 5px;
     padding: 4px 10px;
 
-    &.notSecure {
-        background-color: $notSecureBackground;
-        color: $notSecureForeground;
+    &.securitylevel-1 {
+        background-color: $securitylevel1Background;
+        color: $securitylevel1Foreground;
     }
 
-    &.midSecure {
-        background-color: $midSecureBackground;
-        color: $midSecureForeground;
+    &.securitylevel-2 {
+        background-color: $securitylevel2Background;
+        color: $securitylevel2Foreground;
     }
 
-    &.secure {
-        background-color: $secureBackground;
-        color: $secureForeground;
+    &.securitylevel-3 {
+        background-color: $securitylevel3Background;
+        color: $securitylevel3Foreground;
     }
 }

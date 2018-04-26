@@ -15,7 +15,7 @@ define(function () {
     var initCounter = 0;
     var securityElementClass = 'securitylevel-';
     var securityNotes = [
-        'No password set',
+        '',
         'Unsecure',
         'Could be more secure',
         'Ok',
@@ -46,19 +46,16 @@ define(function () {
                passwordField.on('change paste keyup', function(){
                    var passwordFieldValue = passwordField.val();
 
-                   if (passwordFieldValue) {
+                   var passwordScore = PasswordSecurityDisplay.checkPasswordComplexity(passwordFieldValue);
 
-                       var passwordScore = PasswordSecurityDisplay.checkPasswordComplexity(passwordFieldValue);
-
-                       if (passwordScore > 75) {
-                           PasswordSecurityDisplay.setSecurityLevel(securityLevel, '3');
-                       } else if (passwordScore > 50) {
-                           PasswordSecurityDisplay.setSecurityLevel(securityLevel, '2');
-                       } else if (passwordScore > 0) {
-                           PasswordSecurityDisplay.setSecurityLevel(securityLevel, '1');
-                       } else {
-                           PasswordSecurityDisplay.setSecurityLevel(securityLevel, '0');
-                       }
+                   if (passwordScore > 75) {
+                       PasswordSecurityDisplay.setSecurityLevel(securityLevel, '3');
+                   } else if (passwordScore > 50) {
+                       PasswordSecurityDisplay.setSecurityLevel(securityLevel, '2');
+                   } else if (passwordScore > 0) {
+                       PasswordSecurityDisplay.setSecurityLevel(securityLevel, '1');
+                   } else {
+                       PasswordSecurityDisplay.setSecurityLevel(securityLevel, '0');
                    }
                });
            });

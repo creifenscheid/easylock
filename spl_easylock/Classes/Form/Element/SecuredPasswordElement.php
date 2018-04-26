@@ -4,8 +4,6 @@ namespace SPL\SplEasylock\Form\Element;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\MathUtility;
 use TYPO3\CMS\Core\Utility\StringUtility;
-use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
-use TYPO3\CMS\Lang\LanguageService;
 
 /**
  * Class of renderType securedPassword to display security level of chosen password
@@ -18,9 +16,6 @@ class SecuredPasswordElement extends \TYPO3\CMS\Backend\Form\Element\AbstractFor
      * @return array As defined in initializeResultArray() of AbstractNode
      */
     public function render() {
-        $table = $this->data['tableName'];
-        $fieldName = $this->data['fieldName'];
-        $row = $this->data['databaseRow'];
         $parameterArray = $this->data['parameterArray'];
         $resultArray = $this->initializeResultArray();
 

@@ -1,0 +1,21 @@
+.tx-spl-easylock-securitylevel {
+    width: 100%;
+    height: 25px;
+    margin-top: 5px;
+    padding: 4px 10px;
+
+    &.securitylevel-1 {
+        background-color: $securitylevel1Background;
+        color: $securitylevel1Foreground;
+    }
+
+    &.securitylevel-2 {
+        background-color: $securitylevel2Background;
+        color: $securitylevel2Foreground;
+    }
+
+    &.securitylevel-3 {
+        background-color: $securitylevel3Background;
+        color: $securitylevel3Foreground;
+    }
+}

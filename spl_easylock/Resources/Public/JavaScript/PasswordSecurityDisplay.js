@@ -10,8 +10,23 @@ define(function () {
     /**
      * @exports TYPO3/CMS/SplEasylock/PasswordSecurityDisplay
      */
+
     var PasswordSecurityDisplay = {};
     var initCounter = 0;
+    var securityElementClass = 'securitylevel-';
+    var securityNotes = [
+        'No password set',
+        'Unsecure',
+        'Could be more secure',
+        'Ok',
+    ];
+    var minLength = 8;
+    var charLists = [
+        'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+        'abcdefghijklmnopqrstuvwxyz',
+        '0123456789',
+        '!@#$%&*().,;:_-'
+    ];
 
     /**
      * initialize events
@@ -36,14 +51,13 @@ define(function () {
                        var passwordScore = PasswordSecurityDisplay.checkPasswordComplexity(passwordFieldValue);
 
                        if (passwordScore > 75) {
-                           securityLevel.addClass("securitylevel-3");
-                           securityLevel.text("Secure");
+                           PasswordSecurityDisplay.setSecurityLevel(securityLevel, '3');
                        } else if (passwordScore > 50) {
-                           securityLevel.addClass("securitylevel-2");
-                           securityLevel.text("Could be more secure");
+                           PasswordSecurityDisplay.setSecurityLevel(securityLevel, '2');
+                       } else if (passwordScore > 0) {
+                           PasswordSecurityDisplay.setSecurityLevel(securityLevel, '1');
                        } else {
-                           securityLevel.addClass("securitylevel-1");
-                           securityLevel.text("Unsecure");
+                           PasswordSecurityDisplay.setSecurityLevel(securityLevel, '0');
                        }
                    }
                });
@@ -72,16 +86,6 @@ define(function () {
 
         // init password score
         var pwdScore = 0;
-
-        // define min length
-        var minLength = 8;
-
-        var charLists = [
-            'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-            'abcdefghijklmnopqrstuvwxyz',
-            '0123456789',
-            '!@#$%&*().,;:_-'
-        ];
 
         for(var i = 0; i < charLists.length;  i++) {
             if (PasswordSecurityDisplay.checkValue(password, charLists[i])) {
@@ -114,12 +118,20 @@ define(function () {
     };
 
     /**
-     * clear css class
+     * set security level
      */
-    PasswordSecurityDisplay.clearCssClasses = function (element) {
+    PasswordSecurityDisplay.setSecurityLevel = function (element, level) {
+
+        // remove possible existing level classes
         for (var i = 1; i <= 3; i++) {
             element.removeClass('securitylevel-' + i);
         }
+
+        // add new level class
+        element.addClass(securityElementClass + level);
+
+        // change security label
+        element.text(securityNotes[level]);
     };
 
     // trigger init events

@@ -1,21 +1,21 @@
 <?php
 
-$EM_CONF[$_EXTKEY] = array(
+$EM_CONF[$_EXTKEY] = [
     'title' => 'EasyLock',
     'description' => 'Password security for frontend pages without user sections',
     'category' => 'fe',
     'author' => 'Christian Reifenscheid',
-    'author_email' => 'sepp@einundzwanzig12.de',
-    'version' => '1.2.0',
+    'author_email' => 'christian.reifenscheid.2112@gmail.com',
+    'version' => '10.0.0',
     'state' => 'stable',
     'uploadfolder' => false,
     'createDirs' => '',
     'clearcacheonload' => true,
-    'constraints' => array(
-        'depends' => array(
-            'typo3' => '8.7.0-9.2.99',
-        ),
-        'conflicts' => array(),
-        'suggests' => array(),
-    ),
-);
+    'constraints' => [
+        'depends' => [
+            'typo3' => '10.4.0-10.4.99',
+        ],
+        'conflicts' => [],
+        'suggests' => [],
+    ]
+];

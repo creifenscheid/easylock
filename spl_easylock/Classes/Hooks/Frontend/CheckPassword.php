@@ -1,5 +1,5 @@
 <?php
-namespace SPL\SplEasylock\Hooks\Frontend;
+namespace ChristianReifenscheid\Easylock\Hooks\Frontend;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -41,9 +41,9 @@ class EasyLock {
         $this->currentPage = $params['pObj']->page;
 
         // check current password if easylock is set
-        if($this->currentPage['tx_spleasylock_password'] != '') {
+        if($this->currentPage['tx_easylock_password'] != '') {
             // based on current page
-            $this->password = $this->currentPage['tx_spleasylock_password'];
+            $this->password = $this->currentPage['tx_easylock_password'];
         }
 
         // check parent pages recursively
@@ -89,7 +89,7 @@ class EasyLock {
                     }
 
                     // get typoscript configuration
-                    $this->configuration = $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_spleasylock.']['view.'];
+                    $this->configuration = $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_easylock.']['view.'];
 
                     // set template path
                     $templateFile = \TYPO3\CMS\Core\Utility\GeneralUtility::resolveBackPath(PATH_site . $this->configuration['templateRootPath'] . $this->configuration['template']);
@@ -177,7 +177,7 @@ class EasyLock {
     protected function validateSession () {
 
         // get session parameter
-        $sessionPageProtector = $GLOBALS['TSFE']->fe_user->getKey('ses','spleasylock');
+        $sessionPageProtector = $GLOBALS['TSFE']->fe_user->getKey('ses','easylock');
 
         // check session for password
         if ($sessionPageProtector != '') {
@@ -208,7 +208,7 @@ class EasyLock {
     protected function validatePostVars () {
 
         // get get/post value of easylock
-        $gpEasylock = GeneralUtility::_GP('spleasylock');
+        $gpEasylock = GeneralUtility::_GP('easylock');
 
         // easylock set
         if ($gpEasylock != '') {
@@ -218,7 +218,7 @@ class EasyLock {
 
             if($validation === 1) {
                 // set session parameter
-                $GLOBALS['TSFE']->fe_user->setKey('ses', 'spleasylock', $this->password);
+                $GLOBALS['TSFE']->fe_user->setKey('ses', 'easylock', $this->password);
                 $GLOBALS['TSFE']->storeSessionData();
 
                 return 1;
@@ -292,9 +292,9 @@ class EasyLock {
             $parentPage = $this->pageRepository->getPage($parentPageId);
 
             // check parent page for protector password
-            if ($parentPage['tx_spleasylock_password'] != '') {
+            if ($parentPage['tx_easylock_password'] != '') {
                 // set password
-                $this->protectorPassword = $parentPage['tx_spleasylock_password'];
+                $this->protectorPassword = $parentPage['tx_easylock_password'];
                 return;
             }
 

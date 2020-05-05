@@ -1,12 +1,12 @@
-plugin.tx_spleasylock {
+plugin.tx_easylock {
     view {
 
         # cat=EasyLock/file; type=string; label=Template root path
-        templateRootPath = typo3conf/ext/spl_easylock/Resources/Private/Templates/
+        templateRootPath = typo3conf/ext/easylock/Resources/Private/Templates/
         # cat=EasyLock/file; type=string; label=Partial root path
-        partialRootPath = typo3conf/ext/spl_easylock/Resources/Private/Partials/
+        partialRootPath = typo3conf/ext/easylock/Resources/Private/Partials/
         # cat=EasyLock/file; type=string; label=Layout root path
-        layoutRootPath = typo3conf/ext/spl_easylock/Resources/Private/Layouts/
+        layoutRootPath = typo3conf/ext/easylock/Resources/Private/Layouts/
 
         # cat=EasyLock/file; type=string; label=Container to clear [css classes, comma separated]
         clearContainer =

@@ -1,12 +1,12 @@
-plugin.tx_spleasylock {
+plugin.tx_easylock {
     view {
-        templateRootPath = {$plugin.tx_spleasylock.view.templateRootPath}
-        partialRootPath = {$plugin.tx_spleasylock.view.partialRootPath}
-        layoutRootPath = {$plugin.tx_spleasylock.view.layoutRootPath}
+        templateRootPath = {$plugin.tx_easylock.view.templateRootPath}
+        partialRootPath = {$plugin.tx_easylock.view.partialRootPath}
+        layoutRootPath = {$plugin.tx_easylock.view.layoutRootPath}
 
-        clearContainer = {$plugin.tx_spleasylock.view.clearContainer}
-        targetContainer = {$plugin.tx_spleasylock.view.targetContainer}
+        clearContainer = {$plugin.tx_easylock.view.clearContainer}
+        targetContainer = {$plugin.tx_easylock.view.targetContainer}
 
-        template = {$plugin.tx_spleasylock.view.template}
+        template = {$plugin.tx_easylock.view.template}
     }
 }

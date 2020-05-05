@@ -1,5 +1,5 @@
 <?php
-namespace SPL\SplEasylock\Evaluation;
+namespace ChristianReifenscheid\Easylock\Evaluation;
 
 /**
  * Class for field value validation/evaluation to be used in 'eval' of TCA

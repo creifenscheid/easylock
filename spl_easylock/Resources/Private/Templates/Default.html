@@ -1,18 +1,18 @@
-<div class="tx-spleasylock">
+<div class="tx-easylock">
     <h1>
-        <f:translate key="LLL:typo3conf/ext/spl_easylock/Resources/Private/Language/locallang.xlf:tx_spleasylock.headline" />
+        <f:translate key="LLL:typo3conf/ext/easylock/Resources/Private/Language/locallang.xlf:tx_easylock.headline" />
     </h1>
 
     <f:if condition="{passwordfail} == 'true'">
-        <div class="tx-spleasylock-alert">
-            <f:translate key="LLL:typo3conf/ext/spl_easylock/Resources/Private/Language/locallang.xlf:tx_spleasylock.alert" />
+        <div class="tx-easylock-alert">
+            <f:translate key="LLL:typo3conf/ext/easylock/Resources/Private/Language/locallang.xlf:tx_easylock.alert" />
         </div>
     </f:if>
 
-    <form action="" method="post" class="tx-spleasylock-form">
-        <input type="password" name="spleasylock" value="" placeholder="{f:translate(key: 'LLL:typo3conf/ext/spl_easylock/Resources/Private/Language/locallang.xlf:tx_spleasylock.placeholder', extensionName: 'spl_easylock')}"/>
+    <form action="" method="post" class="tx-easylock-form">
+        <input type="password" name="easylock" value="" placeholder="{f:translate(key: 'LLL:typo3conf/ext/easylock/Resources/Private/Language/locallang.xlf:tx_easylock.placeholder', extensionName: 'easylock')}"/>
         <button type="submit">
-            <f:translate key="LLL:typo3conf/ext/spl_easylock/Resources/Private/Language/locallang.xlf:tx_spleasylock.submit" />
+            <f:translate key="LLL:typo3conf/ext/easylock/Resources/Private/Language/locallang.xlf:tx_easylock.submit" />
         </button>
     </form>
 </div>

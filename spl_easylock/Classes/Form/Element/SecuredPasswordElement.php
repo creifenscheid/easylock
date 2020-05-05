@@ -1,5 +1,5 @@
 <?php
-namespace SPL\SplEasylock\Form\Element;
+namespace ChristianReifenscheid\Easylock\Form\Element;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\MathUtility;
@@ -52,7 +52,7 @@ class SecuredPasswordElement extends \TYPO3\CMS\Backend\Form\Element\AbstractFor
                 'form-control',
                 't3js-clearable',
                 'hasDefaultValue',
-                'tx-spl-easylock-input',
+                'tx-easylock-input',
             ]),
             'data-formengine-validation-rules' => $this->getValidationDataAsJsonString($config),
             'data-formengine-input-params' => json_encode([
@@ -70,20 +70,21 @@ class SecuredPasswordElement extends \TYPO3\CMS\Backend\Form\Element\AbstractFor
         $mainFieldHtml[] =      '<div class="form-wizards-element tx-spl-easylock-element-container">';
         $mainFieldHtml[] =          '<input type="text"' . GeneralUtility::implodeAttributes($attributes, true) .'/>';
         $mainFieldHtml[] =          '<input type="hidden" name="' . $parameterArray['itemFormElName'] . '" value="' . htmlspecialchars($itemValue) . '" />';
-        $mainFieldHtml[] =          '<div class="tx-spl-easylock-securitylevel" id="tx-spl-easylock-securitylevel_' . $uniqueFieldId . '"></div>';
+        $mainFieldHtml[] =          '<div class="tx-spl-easylock-securitylevel" id="tx-easylock-securitylevel_' . $uniqueFieldId . '"></div>';
         $mainFieldHtml[] =      '</div>';
         $mainFieldHtml[] =  '</div>';
         $mainFieldHtml[] = '</div>';
         $mainFieldHtml = implode(LF, $mainFieldHtml);
 
+        // todo: add as backend skin
         // add backend css
         $resultArray['stylesheetFiles'] = array(
-            'EXT:spl_easylock/Resources/Public/Css/tx-spleasylock-backend.css'
+            'EXT:easylock/Resources/Public/Css/tx-easylock-backend.css'
         );
 
         // add js module
         $resultArray['requireJsModules'] = array(
-            'TYPO3/CMS/SplEasylock/PasswordSecurityDisplay'
+            'TYPO3/CMS/Easylock/PasswordSecurityDisplay'
         );
 
         $resultArray['html'] = '<div class="formengine-field-item t3js-formengine-field-item">' . $mainFieldHtml . '</div>';

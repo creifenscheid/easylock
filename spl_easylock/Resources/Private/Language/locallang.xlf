@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
     <file source-language="en" datatype="plaintext" original="messages" date="2017-05-28T14:00:00Z"
-          product-name="spl_easylock">
+          product-name="easylock">
         <header/>
         <body>
-            <trans-unit id="tx_spleasylock.headline">
+            <trans-unit id="tx_easylock.headline">
                 <source>Password</source>
             </trans-unit>
-            <trans-unit id="tx_spleasylock.placeholder">
+            <trans-unit id="tx_easylock.placeholder">
                 <source>Insert password</source>
             </trans-unit>
-            <trans-unit id="tx_spleasylock.alert">
+            <trans-unit id="tx_easylock.alert">
                 <source>The entered password was not correct.</source>
             </trans-unit>
-            <trans-unit id="tx_spleasylock.submit">
+            <trans-unit id="tx_easylock.submit">
                 <source>Send</source>
             </trans-unit>
         </body>

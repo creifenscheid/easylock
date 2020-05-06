@@ -78,9 +78,9 @@ class SecuredPasswordElement extends \TYPO3\CMS\Backend\Form\Element\AbstractFor
 
         // todo: add as backend skin
         // add backend css
-        $resultArray['stylesheetFiles'] = array(
+        /*$resultArray['stylesheetFiles'] = array(
             'EXT:easylock/Resources/Public/Css/tx-easylock-backend.css'
-        );
+        );*/
 
         // add js module
         $resultArray['requireJsModules'] = array(

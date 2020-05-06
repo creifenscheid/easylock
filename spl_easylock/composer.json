@@ -1,0 +1,20 @@
+{
+	"name" : "christianreifenscheid/easylock",
+	"type" : "typo3-cms-extension",
+	"description" : "This extension provides password security for frontend pages without user sections.",
+	"license" : "GPL-2.0-or-later",
+	"require" : {
+		"typo3/cms-core" : "^10.4"
+	},
+	"autoload" : {
+		"psr-4" : {
+			"ChristianReifenscheid\\Easylock\\" : "Classes/"
+		}
+	},
+	"minimum-stability" : "alpha",
+	"authors" : [{
+			"name" : "Christian Reifenscheid",
+			"email" : "christian.reifenscheid.2112@gmail.com"
+		}
+	]
+}

@@ -2,7 +2,7 @@
 
 $EM_CONF[$_EXTKEY] = [
     'title' => 'EasyLock',
-    'description' => 'Password security for frontend pages without user sections',
+    'description' => 'This extension provides password security for frontend pages without user sections.',
     'category' => 'fe',
     'author' => 'Christian Reifenscheid',
     'author_email' => 'christian.reifenscheid.2112@gmail.com',

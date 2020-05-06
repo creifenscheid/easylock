@@ -1,6 +1,5 @@
 plugin.tx_easylock {
     view {
-
         # cat=EasyLock/file; type=string; label=Template root path
         templateRootPath = typo3conf/ext/easylock/Resources/Private/Templates/
         # cat=EasyLock/file; type=string; label=Partial root path

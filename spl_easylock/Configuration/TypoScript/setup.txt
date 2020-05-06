@@ -1,8 +1,8 @@
 plugin.tx_easylock {
     view {
-        templateRootPath = {$plugin.tx_easylock.view.templateRootPath}
-        partialRootPath = {$plugin.tx_easylock.view.partialRootPath}
-        layoutRootPath = {$plugin.tx_easylock.view.layoutRootPath}
+        templateRootPaths.0 = {$plugin.tx_easylock.view.templateRootPath}
+        partialRootPaths.0 = {$plugin.tx_easylock.view.partialRootPath}
+        layoutRootPaths.0 = {$plugin.tx_easylock.view.layoutRootPath}
 
         clearContainer = {$plugin.tx_easylock.view.clearContainer}
         targetContainer = {$plugin.tx_easylock.view.targetContainer}

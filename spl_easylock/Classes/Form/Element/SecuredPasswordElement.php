@@ -76,15 +76,9 @@ class SecuredPasswordElement extends \TYPO3\CMS\Backend\Form\Element\AbstractFor
         $mainFieldHtml[] = '</div>';
         $mainFieldHtml = implode(LF, $mainFieldHtml);
 
-        // todo: add as backend skin
-        // add backend css
-        /*$resultArray['stylesheetFiles'] = array(
-            'EXT:easylock/Resources/Public/Css/tx-easylock-backend.css'
-        );*/
-
         // add js module
         $resultArray['requireJsModules'] = array(
-            'TYPO3/CMS/Easylock/PasswordSecurityDisplay'
+            'TYPO3.Easylock'
         );
 
         $resultArray['html'] = '<div class="formengine-field-item t3js-formengine-field-item">' . $mainFieldHtml . '</div>';

@@ -1,8 +1,6 @@
 <?php
 namespace ChristianReifenscheid\Easylock\Hooks\Frontend;
 
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-
 class EasyLock {
     /**
      * @var \TYPO3\CMS\Frontend\Page\PageRepository
@@ -26,7 +24,7 @@ class EasyLock {
 
     public function __construct (){
         // init page repository
-        $this->pageRepository = GeneralUtility::makeInstance('TYPO3\\CMS\\Frontend\\Page\\PageRepository');
+        $this->pageRepository = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Frontend\Page\PageRepository::class);
     }
 
     /**
@@ -41,7 +39,7 @@ class EasyLock {
         $this->currentPage = $params['pObj']->page;
 
         // check current password if easylock is set
-        if($this->currentPage['tx_easylock_password'] != '') {
+        if($this->currentPage['tx_easylock_password'] !== '') {
             // based on current page
             $this->password = $this->currentPage['tx_easylock_password'];
         }
@@ -53,7 +51,7 @@ class EasyLock {
         }
 
         // validate password if set
-        if ($this->password != '') {
+        if ($this->password !== '') {
 
             // validate session
             $validateSession = $this->validateSession();
@@ -180,7 +178,7 @@ class EasyLock {
         $sessionPageProtector = $GLOBALS['TSFE']->fe_user->getKey('ses','easylock');
 
         // check session for password
-        if ($sessionPageProtector != '') {
+        if ($sessionPageProtector !== '') {
 
             // validate session value against set password
             $validation = $this->validatePassword($sessionPageProtector);
@@ -269,7 +267,7 @@ class EasyLock {
 
         else {
             // validate password
-            if ($this->password == $notValidatedPassword) {
+            if ($this->password === $notValidatedPassword) {
                 return 1;
             }
 
@@ -294,7 +292,7 @@ class EasyLock {
             // check parent page for protector password
             if ($parentPage['tx_easylock_password'] != '') {
                 // set password
-                $this->protectorPassword = $parentPage['tx_easylock_password'];
+                $this->password = $parentPage['tx_easylock_password'];
                 return;
             }
 
@@ -309,5 +307,3 @@ class EasyLock {
         }
     }
 }
-
-?>

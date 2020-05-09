@@ -5,7 +5,7 @@
         <header/>
         <body>
             <trans-unit id="pages.palette_title">
-                <source>EasyLock</source>
+                <source>Easylock</source>
             </trans-unit>
             <trans-unit id="pages.tx_easylock.password">
                 <source>Frontend password</source>

@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-    <file source-language="en" datatype="plaintext" original="messages" date="2017-05-28T14:00:00Z"
+    <file source-language="en" datatype="plaintext" original="messages" date="2020-05-09T11:55:00Z"
           product-name="easylock">
         <header/>
         <body>
-            <trans-unit id="pages.palette_title">
-                <source>Easylock</source>
-            </trans-unit>
             <trans-unit id="pages.tx_easylock.password">
                 <source>Frontend password</source>
             </trans-unit>

@@ -54,9 +54,7 @@ This extension provides password security for frontend pages without user sectio
    :hidden:
 
 
-   Introduction/Index
+   Installation/Index
    Configuration/Index
-   Developer/Index
-   WhatsNext/Index
    ChangeLog/Index
    Sitemap

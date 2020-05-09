@@ -19,11 +19,6 @@ $columns = [
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('pages', $columns);
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes(
     'pages',
-    '--div--;LLL:EXT:' . 'easylock' . '/Resources/Private/Language/locallang_db.xml:pages.palette_title,
+    '--div--;LLL:EXT:easylock/Resources/Private/Language/locallang_general.xml:extension.name,
     tx_easylock_password'
 );
-
-// Add new palette
-// todo: check need
-/*$GLOBALS['TCA']['sys_file_reference']['palettes']['easylockPalette'] = $GLOBALS['TCA']['sys_file_reference']['palettes']['basicoverlayPalette'];
-$GLOBALS['TCA']['sys_file_reference']['palettes']['easylockPalette']['showitem'] = '';*/

@@ -1,32 +1,87 @@
 <?php
-namespace ChristianReifenscheid\Easylock\Hooks\Frontend;
 
-class EasyLock {
+declare(strict_types=1);
+
+namespace ChristianReifenscheid\Easylock\Middleware;
+
+/**
+ * *************************************************************
+ *
+ * Copyright notice
+ *
+ * (c) 2020 Christian Reifenscheid <christian.reifenscheid.2112@gmail.com>
+ *
+ * All rights reserved
+ *
+ * This script is part of the TYPO3 project. The TYPO3 project is
+ * free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * The GNU General Public License can be found at
+ * http://www.gnu.org/copyleft/gpl.html.
+ *
+ * This script is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * This copyright notice MUST APPEAR in all copies of the script!
+ * *************************************************************
+ */
+
+/**
+ * Class ContentProtector
+ *
+ * @package ChristianReifenscheid\Easylock\Middleware
+ * @author  Christian Reifenscheid
+ */
+class ContentProtector implements \Psr\Http\Server\MiddlewareInterface
+{
     /**
-     * @var \TYPO3\CMS\Frontend\Page\PageRepository
+     * PageRepository
+     *
+     * @var \TYPO3\CMS\Core\Domain\Repository\PageRepository
      */
     protected $pageRepository;
-
+    
     /**
+     * password set in current page or a rootline page
+     *
      * @var string
      */
     protected $password;
 
     /**
+     * Page id if current page
+     *
      * @var integer
      */
     protected $currentPage;
 
     /**
+     * typoscript configuration
+     *
      * @var array
      */
     protected $configuration;
 
-    public function __construct (){
-        // init page repository
-        $this->pageRepository = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Frontend\Page\PageRepository::class);
+    /**
+     * Replaces content of defined container with password form if not already filled out successfully
+     *
+     * @param \Psr\Http\Message\ServerRequestInterface $request
+     * @param \Psr\Http\Server\RequestHandlerInterface $handler
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function process(\Psr\Http\Message\ServerRequestInterface $request, \Psr\Http\Server\RequestHandlerInterface $handler): \Psr\Http\Message\ResponseInterface
+    {
+        /** @var \TYPO3\CMS\Core\Domain\Repository\PageRepository $pageRepository */
+        $this->pageRepository = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Domain\Repository\PageRepository::class);
+        
+        return $handler->handle($request);
     }
-
+    
     /**
      * user_checkPassword
      *
@@ -170,40 +225,38 @@ class EasyLock {
             return;
         }
     }
-
-
-    protected function validateSession () {
-
+    
+    /**
+     * Check session if correct password has already been entered
+     *
+     * @return bool
+     */
+    protected function validateSession () : bool
+    {
         // get session parameter
         $sessionPageProtector = $GLOBALS['TSFE']->fe_user->getKey('ses','easylock');
 
         // check session for password
         if ($sessionPageProtector !== '') {
 
-            // validate session value against set password
+            // validate session value against entered password
             $validation = $this->validatePassword($sessionPageProtector);
 
             if($validation === 1) {
-                return 1;
-            }
-
-            else {
-                return 0;
+                return true;
             }
         }
 
-        else {
-            // password not set in session
-            return 0;
-        }
+        return false;
     }
-
+    
     /**
-     * check post vars if password form has been sent
+     * Check post vars if password form has been sent
      *
-     * @return mixed
+     * @return int
      */
-    protected function validatePostVars () {
+    protected function validatePostVars () : int
+    {
 
         // get get/post value of easylock
         $gpEasylock = GeneralUtility::_GP('easylock');
@@ -232,14 +285,14 @@ class EasyLock {
             return 0;
         }
     }
-
+    
     /**
      * validate the user password (session data or form input)
      *
      * @param $notValidatedPassword
      * @return bool
      */
-    protected function validatePassword($notValidatedPassword, $saltedMode = FALSE) {
+    protected function validatePassword($notValidatedPassword, $saltedMode = FALSE) : bool {
 
         if ($saltedMode) {
             $success = FALSE;
@@ -281,8 +334,9 @@ class EasyLock {
      * get password from page properties recursive
      *
      * @param $parentPageId
+     * @return void
      */
-    protected function getPasswordRecursive($parentPageId) {
+    protected function getPasswordRecursive($parentPageId) : void {
         // only run function, when parent pid is not 0
         if ($parentPageId != 0) {
 

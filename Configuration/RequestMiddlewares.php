@@ -14,7 +14,9 @@ return [
     'frontend' => [
         'christianreifenscheid/easylock/content-protector' => [
             'target' => \ChristianReifenscheid\Easylock\Middleware\ContentProtector::class,
-            'before' => 'typo3/cms-frontend/content-length-headers'
+            'before' => [
+                'typo3/cms-frontend/content-length-headers'
+            ]
         ]
     ]
 ];

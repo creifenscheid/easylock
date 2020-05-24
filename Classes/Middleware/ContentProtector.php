@@ -70,39 +70,44 @@ class ContentProtector implements \Psr\Http\Server\MiddlewareInterface
         if ($password) {
             
             // check session for already entered password
-            $sessionApproval = \ChristianReifenscheid\Easylock\Utility\ValidationUtility::validate($GLOBALS['TSFE']->fe_user->getKey('ses', 'easylock'), $password);
-            
-            // if session password is approved
-            if ($sessionApproval) {
-                return $handler->handle($request);
+            if ($GLOBALS['TSFE']->fe_user->getKey('ses', 'easylock')) {
+                $sessionApproval = \ChristianReifenscheid\Easylock\Utility\ValidationUtility::validate($GLOBALS['TSFE']->fe_user->getKey('ses', 'easylock'), $password);
+                
+                // if session password is approved
+                if ($sessionApproval) {
+                    return $handler->handle($request);
+                }
             }
             
             // else check request parameter
-            // todo: check request for param
-            $requestApproval = \ChristianReifenscheid\Easylock\Utility\ValidationUtility::validate(\TYPO3\CMS\Core\Utility\GeneralUtility::_GP('easylock', $password);
+            $queryParams = $request->getQueryParams();
             
-            // if entered password from request is approved
-            if ($requestApproval) {
-                return $handler->handle($request);
-            } else if ($requestApproval === false) {
-                // set flag to render error message due to incorrect entered password
-                $formValidationError = true;
+            if ($queryParams['easylock']) {
+                
+                $requestApproval = \ChristianReifenscheid\Easylock\Utility\ValidationUtility::validate($queryParams['easylock'], $password);
+                
+                // if entered password from request is approved
+                if ($requestApproval) {
+                    return $handler->handle($request);
+                } else if ($requestApproval === false) {
+                    // set flag to render error message due to incorrect entered password
+                    $formValidationError = true;
+                }
             }
             
             // get typoscript configuration
             $configuration = $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_easylock.']['view.'];
             
             // set template path
-            // todo: replace backpath and PATH_site
-            $templateFile = \TYPO3\CMS\Core\Utility\GeneralUtility::resolveBackPath(PATH_site . $configuration['templateRootPath'] . $configuration['template']);
+            $templateFile = \TYPO3\CMS\Core\Utility\GeneralUtility::resolveBackPath(\TYPO3\CMS\Core\Core\Environment::getPublicPath() . '/' . $configuration['templateRootPath'] . $configuration['template']);
             
             // set up view
             $view = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Fluid\View\StandaloneView::class);
             $view->setFormat('html');
             $view->setTemplatePathAndFilename($templateFile);
-            $view->assignMultiple(
+            $view->assignMultiple([
                 'formValidationError' => $formValidationError
-            );
+            ]);
 
             // split content container
             $clearContainer = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $configuration['clearContainer'], TRUE);

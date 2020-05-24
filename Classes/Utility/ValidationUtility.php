@@ -41,17 +41,26 @@ class ValidationUtility
 {
     /**
      * Compare value after it'been salted with expected value
-     *
+     * 
      * @param string $value
      * @param string $expectedValue
-     * @param bool $strict
-     *
-     * @return null|bool
+     * @param boolean $strict
+     * @return bool|NULL
      */
     public static function validate (string $value, string $expectedValue, $strict = true) : ?bool
     {
         if ($value) {
-            // todo: implement salting factory
+            
+            /** @var \TYPO3\CMS\Core\Crypto\PasswordHashing\PasswordHashFactory $hashFactory */
+            $hashFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Crypto\PasswordHashing\PasswordHashFactory::class);
+            $mode = 'BE';
+            
+            try {
+                $hashFactory->get($value, $mode);
+            } catch (\TYPO3\CMS\Core\Crypto\PasswordHashing\InvalidPasswordHashException $e) {
+                $newHashInstance = $hashFactory->getDefaultHashInstance($mode);
+                $value = $newHashInstance->getHashedPassword($value);
+            }
         
             if ($strict) {
                 if ($value === $expectedValue) {
@@ -67,53 +76,5 @@ class ValidationUtility
         }
         
         return null;
-    }
-    
-    
-    ############
-    
-    
-    /**
-     * validate the user password (session data or form input)
-     *
-     * @param $notValidatedPassword
-     * @return bool
-     */
-    protected function validatePassword($notValidatedPassword, $saltedMode = FALSE) : bool {
-
-        if ($saltedMode) {
-            $success = FALSE;
-
-            // check salting utility
-            if (\TYPO3\CMS\Saltedpasswords\Utility\SaltedPasswordsUtility::isUsageEnabled ('BE')) {
-
-                // if enable for be - get instance of salt factory object
-                $saltObj = \TYPO3\CMS\Saltedpasswords\Salt\SaltFactory::getSaltingInstance ();
-
-                // check salt factory objects
-                if (is_object($saltObj)) {
-                    $success = $saltObj->checkPassword($notValidatedPassword, $this->password);
-                }
-            }
-
-            if ($success) {
-                return 1;
-            }
-
-            else {
-                return 0;
-            }
-        }
-
-        else {
-            // validate password
-            if ($this->password === $notValidatedPassword) {
-                return 1;
-            }
-
-            else {
-                return 0;
-            }
-        }
     }
 }
